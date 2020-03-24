@@ -21,7 +21,7 @@ def update_covid19_repo():
 
 
 '''
-    This function reads csv from JHU CSSE COVID-19 Github Github folder and filters data 
+    This function reads CSV from JHU CSSE COVID-19 Github folder and filters data 
     to retrieve weekly confirmed cases for all 52 states in the US. 
 
     https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv
@@ -33,13 +33,13 @@ def get_weekly_stats():
     # First 170 rows in file, to eliminate US counties for now
     data = data.head(200)
 
-    # Get only United States data
-    weekly_data = data.loc[data['Country/Region'] == "US"]
-
-    # Gives syntax error? Not sure why.
+    # Gives syntax error at ":"? Not sure why, yet.
     # weekly_data = weekly_data.iloc[:, [0:2] + [-7:]]
 
     weekly_data = data.iloc[:, [0, 1, -7, -6, -5, -4, -3, -2, -1]]
+
+     # Get only United States data
+    weekly_data = weekly_data.loc[data['Country/Region'] == "US"]
 
     # Sort data from most confirm cases to least
     weekly_data = weekly_data.sort_values('Province/State')
